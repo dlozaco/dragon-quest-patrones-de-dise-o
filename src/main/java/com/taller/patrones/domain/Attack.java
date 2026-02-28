@@ -19,7 +19,4 @@ public class Attack {
     public int getBasePower() { return basePower; }
     public AttackType getType() { return type; }
 
-    public enum AttackType {
-        NORMAL, SPECIAL, STATUS
-    }
 }
