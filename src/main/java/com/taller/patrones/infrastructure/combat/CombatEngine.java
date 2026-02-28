@@ -23,6 +23,7 @@ public class CombatEngine {
             case "ICE_BEAM" -> new Attack("Ice Beam", 70, Attack.AttackType.SPECIAL);
             case "POISON_STING" -> new Attack("Poison Sting", 20, Attack.AttackType.STATUS);
             case "THUNDER" -> new Attack("Thunder", 90, Attack.AttackType.SPECIAL);
+            case "METEOR" -> new Attack("Meteor", 120, Attack.AttackType.SPECIAL);
             default -> new Attack("Golpe", 30, Attack.AttackType.NORMAL);
         };
     }
