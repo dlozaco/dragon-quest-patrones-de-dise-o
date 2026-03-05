@@ -17,7 +17,7 @@ public class CombatEngine {
      * Calcula el daño según el tipo de ataque.
      */
     public int calculateDamage(Character attacker, Character defender, Attack attack) {
-        DamageI damageI = DamageFactory.getDamage(attack.getType());
-        return damageI.calculateDamage(attacker, defender, attack);
+        DamageStrategy damageStrategy = DamageFactory.getStrategy(attack.getType());
+        return damageStrategy.calculateDamage(attacker, defender, attack);
     }
 }

@@ -1,5 +1,5 @@
 package com.taller.patrones.domain;
 
 public enum AttackType {
-    NORMAL, SPECIAL, STATUS
+    NORMAL, SPECIAL, STATUS, CRITIC
 }
