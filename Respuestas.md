@@ -29,6 +29,13 @@ Creando una sola instancia que se comparte con todos, usando el Singleton.
 ### ¿Qué patrón garantiza una única instancia de una clase?
 El patrón Singleton
 
+## 5. Recibir datos de un API externo
+### ¿Qué problema hay en poner la lógica de conversión en el controller?
+Se viola el Principio de Responsabilidad Única (SRP): el controller solo debería recibir peticiones y devolver respuestas, no encargarse de convertir formatos externos a nuestro dominio.
+### ¿Cómo aislar la conversión "formato externo → nuestro dominio" para no ensuciar el controller?
+Crearíamos una instancia la cual recibe los datos en formato externo y los convierte en objetos de nuestro dominio, así delegando el controller la conversión al adapter.
+### ¿Qué patrón permite que un objeto "adaptado" se use como si fuera uno de los nuestros?
+El patrón adapter
 
 
 
