@@ -20,3 +20,15 @@ El problema principal es que cuando lees el constructor te puedes perder a la ho
 Usando el patrón Builder. En lugar de un constructor con muchos parámetros, se encadenan métodos con nombre que indican qué valor se está asignando, y los valores opcionales simplemente no se llaman.
 ### ¿Qué patrón permite construir objetos complejos paso a paso?
 El patrón Builder.
+
+## 4. Un único almacén de batallas
+### ¿Qué pasaría si dos clases crean su propio BattleRepository sin el static?
+Se crearían instancias distintas de BattleRepository, cada una con su propio Map de batallas, por lo que no compartirían los datos almacenados.
+### ¿Cómo asegurar que toda la aplicación use la misma instancia de almacenamiento?
+Creando una sola instancia que se comparte con todos, usando el Singleton.
+### ¿Qué patrón garantiza una única instancia de una clase?
+El patrón Singleton
+
+
+
+

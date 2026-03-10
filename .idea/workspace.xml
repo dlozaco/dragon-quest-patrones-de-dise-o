@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="45b1aa7d-740a-42c7-948a-6e975754c383" name="Changes" comment="refactor: applied builder design pattern, end of exercise 3&#10;&#10;Create new Characters with builder design pattern, with the CharacterBuilder class">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/taller/patrones/domain/Builders/CharacterBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Respuestas.md" beforeDir="false" afterPath="$PROJECT_DIR$/Respuestas.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/taller/patrones/application/BattleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taller/patrones/application/BattleService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/taller/patrones/domain/Character.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taller/patrones/domain/Character.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/taller/patrones/infrastructure/persistence/BattleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taller/patrones/infrastructure/persistence/BattleRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +108,7 @@
       <workItem from="1772317136086" duration="2251000" />
       <workItem from="1772495245469" duration="9000" />
       <workItem from="1772731690675" duration="3419000" />
-      <workItem from="1773141449911" duration="1535000" />
+      <workItem from="1773141449911" duration="2793000" />
     </task>
     <task id="LOCAL-00001" summary="refactor: applied factory design pattern, end of exercise 1&#10;&#10;CombatEngine refactored to use Factory design pattern and also refactored to meet SOLID principles">
       <option name="closed" value="true" />
@@ -135,7 +134,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773142996214</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="refactor: applied builder design pattern, end of exercise 3&#10;&#10;Create new Characters with builder design pattern, with the CharacterBuilder class">
+      <option name="closed" value="true" />
+      <created>1773143078487</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1773143078487</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
