@@ -4,20 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="45b1aa7d-740a-42c7-948a-6e975754c383" name="Changes" comment="refactor: applied factory design pattern, end of exercise 1&#10;&#10;CombatEngine refactored to use Factory design pattern and also refactored to meet SOLID principles">
-      <change afterPath="$PROJECT_DIR$/Respuestas.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/taller/patrones/domain/AttackTypes/CriticType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/taller/patrones/domain/DamageCalculator.java" afterDir="false" />
+    <list default="true" id="45b1aa7d-740a-42c7-948a-6e975754c383" name="Changes" comment="refactor: applied strategy design pattern, end of exercise 2&#10;&#10;Calculate damage in CombatEngine refactored to meet Strategy Pattern">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/taller/patrones/domain/Builders/CharacterBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/taller/patrones/domain/AttackType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taller/patrones/domain/AttackType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/taller/patrones/domain/AttackTypes/DefaultType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taller/patrones/domain/AttackTypes/DefaultType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/taller/patrones/domain/AttackTypes/NormalType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taller/patrones/domain/AttackTypes/NormalType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/taller/patrones/domain/AttackTypes/SpecialType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taller/patrones/domain/AttackTypes/SpecialType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/taller/patrones/domain/AttackTypes/StatusType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taller/patrones/domain/AttackTypes/StatusType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/taller/patrones/domain/DamageFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taller/patrones/domain/DamageFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/taller/patrones/domain/DamageI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taller/patrones/domain/DamageStrategy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/taller/patrones/infrastructure/combat/CombatEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taller/patrones/infrastructure/combat/CombatEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/taller/patrones/infrastructure/combat/CombatEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/taller/patrones/infrastructure/combat/CombatEngine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Respuestas.md" beforeDir="false" afterPath="$PROJECT_DIR$/Respuestas.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/taller/patrones/application/BattleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taller/patrones/application/BattleService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/taller/patrones/domain/Character.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taller/patrones/domain/Character.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,7 +108,8 @@
       <workItem from="1772294055373" duration="2018000" />
       <workItem from="1772317136086" duration="2251000" />
       <workItem from="1772495245469" duration="9000" />
-      <workItem from="1772731690675" duration="2576000" />
+      <workItem from="1772731690675" duration="3419000" />
+      <workItem from="1773141449911" duration="1226000" />
     </task>
     <task id="LOCAL-00001" summary="refactor: applied factory design pattern, end of exercise 1&#10;&#10;CombatEngine refactored to use Factory design pattern and also refactored to meet SOLID principles">
       <option name="closed" value="true" />
@@ -126,7 +119,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772318516405</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="refactor: applied strategy design pattern, end of exercise 2&#10;&#10;Calculate damage in CombatEngine refactored to meet Strategy Pattern">
+      <option name="closed" value="true" />
+      <created>1772734483848</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1772734483848</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -145,6 +146,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="refactor: applied factory design pattern, end of exercise 1&#10;&#10;CombatEngine refactored to use Factory design pattern and also refactored to meet SOLID principles" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: applied factory design pattern, end of exercise 1&#10;&#10;CombatEngine refactored to use Factory design pattern and also refactored to meet SOLID principles" />
+    <MESSAGE value="refactor: applied strategy design pattern, end of exercise 2&#10;&#10;Calculate damage in CombatEngine refactored to meet Strategy Pattern" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: applied strategy design pattern, end of exercise 2&#10;&#10;Calculate damage in CombatEngine refactored to meet Strategy Pattern" />
   </component>
 </project>
