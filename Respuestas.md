@@ -37,5 +37,13 @@ Crearíamos una instancia la cual recibe los datos en formato externo y los conv
 ### ¿Qué patrón permite que un objeto "adaptado" se use como si fuera uno de los nuestros?
 El patrón adapter
 
+## 6. Notificar cuando ocurre daño
+### ¿Qué pasa si añades 5 "suscriptores" más? ¿Cuántas líneas tocarías en `applyDamage()`?
+Tocarías 5 líneas más en applyDamage(). Cada nuevo suscriptor requeriría añadir una nueva llamada
+### ¿Cómo desacoplar "ejecutar ataque" de "notificar a quien le interese"?
+Necesitas crear un evento que se dispare cuando ocurre daño, y que otros componentes se suscriban a ese evento sin que applyDamage() los conozca.
+### ¿Qué patrón permite que varios objetos reaccionen a un evento sin que el emisor los conozca?
+El patrón Observer
+
 
 

@@ -1,4 +1,4 @@
-package com.taller.patrones.domain.Builders;
+package com.taller.patrones.domain.builders;
 
 import com.taller.patrones.domain.Character;
 

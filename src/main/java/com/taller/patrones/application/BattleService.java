@@ -3,9 +3,16 @@ package com.taller.patrones.application;
 import com.taller.patrones.domain.Attack;
 import com.taller.patrones.domain.Battle;
 import com.taller.patrones.domain.Character;
+import com.taller.patrones.domain.events.AnalyticsObserver;
+import com.taller.patrones.domain.events.AuditLogObserver;
+import com.taller.patrones.domain.events.DamageEvent;
+import com.taller.patrones.domain.events.DamageObserver;
 import com.taller.patrones.infrastructure.combat.CombatEngine;
 import com.taller.patrones.infrastructure.persistence.BattleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,13 +22,41 @@ import java.util.UUID;
  * Nota: Crea sus propias dependencias con new. Cada vez que necesitamos
  * un CombatEngine o BattleRepository, hacemos new aquí.
  */
+@Service
 public class BattleService {
 
     private final CombatEngine combatEngine = new CombatEngine();
     private final BattleRepository battleRepository = BattleRepository.getInstance();
+    private final List<DamageObserver> damageObservers = new ArrayList<>();
 
     public static final List<String> PLAYER_ATTACKS = List.of("TACKLE", "SLASH", "FIREBALL", "ICE_BEAM", "POISON_STING", "THUNDER", "METEOR");
     public static final List<String> ENEMY_ATTACKS = List.of("TACKLE", "SLASH", "FIREBALL");
+
+    public BattleService(AnalyticsObserver analyticsObserver, AuditLogObserver auditLogObserver) {
+        subscribe(analyticsObserver);
+        subscribe(auditLogObserver);
+    }
+
+    public void subscribe(DamageObserver observer){
+        damageObservers.add(observer);
+    }
+
+    public void unsubscribe(DamageObserver damageObserver){
+        damageObservers.remove(damageObserver);
+    }
+
+    private void notifyDamage(DamageEvent event) {
+
+        if (damageObservers.isEmpty()) {
+            System.out.println("[BattleService DEBUG] ¡¡No hay observadores!!");
+            return;
+        }
+
+        for (DamageObserver observer : damageObservers) {
+            observer.onDamageOccurred(event);
+        }
+    }
+
 
     public BattleStartResult startBattle(String playerName, String enemyName) {
         Character player = Character.builder()
@@ -73,6 +108,8 @@ public class BattleService {
         String target = defender == battle.getPlayer() ? "player" : "enemy";
         battle.setLastDamage(damage, target);
         battle.log(attacker.getName() + " usa " + attack.getName() + " y hace " + damage + " de daño a " + defender.getName());
+        DamageEvent event = new DamageEvent(attacker, defender, damage, attack, "battleId");
+        notifyDamage(event);
         battle.switchTurn();
         if (!defender.isAlive()) {
             battle.finish(attacker.getName());

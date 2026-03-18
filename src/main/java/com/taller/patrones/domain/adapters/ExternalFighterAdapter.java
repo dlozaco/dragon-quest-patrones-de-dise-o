@@ -1,4 +1,4 @@
-package com.taller.patrones.domain.Adapters;
+package com.taller.patrones.domain.adapters;
 
 import java.util.Map;
 import com.taller.patrones.domain.Character;

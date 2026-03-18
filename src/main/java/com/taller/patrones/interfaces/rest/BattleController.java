@@ -1,14 +1,14 @@
 package com.taller.patrones.interfaces.rest;
 
 import com.taller.patrones.application.BattleService;
-import com.taller.patrones.domain.Adapters.ExternalFighterAdapter;
-import com.taller.patrones.domain.Adapters.FighterAdapter;
+import com.taller.patrones.domain.adapters.ExternalFighterAdapter;
+import com.taller.patrones.domain.adapters.FighterAdapter;
 import com.taller.patrones.domain.Battle;
 import com.taller.patrones.domain.Character;
+import com.taller.patrones.domain.events.AnalyticsObserver;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -16,7 +16,11 @@ import java.util.Map;
 @CrossOrigin(origins = "*")
 public class BattleController {
 
-    private final BattleService battleService = new BattleService();
+    private final BattleService battleService;
+
+    public BattleController(BattleService battleService) {
+        this.battleService = battleService;
+    }
 
     @PostMapping("/start")
     public ResponseEntity<Map<String, Object>> startBattle(@RequestBody(required = false) Map<String, String> body) {

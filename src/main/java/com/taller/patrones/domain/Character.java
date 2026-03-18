@@ -1,6 +1,6 @@
 package com.taller.patrones.domain;
 
-import com.taller.patrones.domain.Builders.CharacterBuilder;
+import com.taller.patrones.domain.builders.CharacterBuilder;
 
 /**
  * Representa un personaje en combate.
