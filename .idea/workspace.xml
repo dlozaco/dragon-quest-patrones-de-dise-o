@@ -4,19 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="45b1aa7d-740a-42c7-948a-6e975754c383" name="Changes" comment="refactor: applied observer design pattern, end of exercise 6&#10;&#10;An analytic and audit message is logged to check the battle">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/taller/patrones/domain/command/AttackCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/taller/patrones/domain/command/Command.java" afterDir="false" />
+    <list default="true" id="45b1aa7d-740a-42c7-948a-6e975754c383" name="Changes" comment="refactor: applied command design pattern, end of exercise 7&#10;&#10;Refactor the code to apply command design pattern and also add the button to undo attack in battle">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/taller/patrones/domain/BattleFacade.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/taller/patrones/domain/dtos/BattleDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Respuestas.md" beforeDir="false" afterPath="$PROJECT_DIR$/Respuestas.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/taller/patrones/application/BattleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taller/patrones/application/BattleService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/taller/patrones/domain/Battle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taller/patrones/domain/Battle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/taller/patrones/domain/Character.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taller/patrones/domain/Character.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/taller/patrones/interfaces/rest/BattleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taller/patrones/interfaces/rest/BattleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/taller/patrones/application/BattleService$BattleStartResult.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/taller/patrones/application/BattleService$BattleStartResult.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/taller/patrones/application/BattleService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/taller/patrones/application/BattleService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/taller/patrones/domain/Character.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/taller/patrones/domain/Character.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/taller/patrones/interfaces/rest/BattleController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/taller/patrones/interfaces/rest/BattleController.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -48,6 +41,9 @@
     &quot;accountId&quot;: &quot;87ce9295-1ed6-41c8-93db-837616574291&quot;
   }
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 6
@@ -122,7 +118,7 @@
       <workItem from="1773326803531" duration="1000" />
       <workItem from="1773333991928" duration="12000" />
       <workItem from="1773826026816" duration="943000" />
-      <workItem from="1773851700546" duration="2969000" />
+      <workItem from="1773851700546" duration="5270000" />
     </task>
     <task id="LOCAL-00001" summary="refactor: applied factory design pattern, end of exercise 1&#10;&#10;CombatEngine refactored to use Factory design pattern and also refactored to meet SOLID principles">
       <option name="closed" value="true" />
@@ -188,7 +184,23 @@
       <option name="project" value="LOCAL" />
       <updated>1773852740810</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="refactor: applied command design pattern, end of exercise 7&#10;&#10;Refactor the code to apply command design pattern and also add the button to undo attack in battle">
+      <option name="closed" value="true" />
+      <created>1773854746623</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1773854746623</updated>
+    </task>
+    <task id="LOCAL-00010" summary="refactor: applied command design pattern, end of exercise 7&#10;&#10;Refactor the code to apply command design pattern and also add the button to undo attack in battle">
+      <option name="closed" value="true" />
+      <created>1773854830575</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1773854830575</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -213,6 +225,7 @@
     <MESSAGE value="refactor: applied singleton design pattern, end of exercise 4&#10;&#10;BattleRepository performs as a singleton, only one is created, so if we create other service, it shares the data from BattleRepository" />
     <MESSAGE value="refactor: applied adapter design pattern, end of exercise 5&#10;&#10;Now startBattleFromExternal it is not reponsible for  parse the data it receives, it is delegated to an Adapter" />
     <MESSAGE value="refactor: applied observer design pattern, end of exercise 6&#10;&#10;An analytic and audit message is logged to check the battle" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: applied observer design pattern, end of exercise 6&#10;&#10;An analytic and audit message is logged to check the battle" />
+    <MESSAGE value="refactor: applied command design pattern, end of exercise 7&#10;&#10;Refactor the code to apply command design pattern and also add the button to undo attack in battle" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: applied command design pattern, end of exercise 7&#10;&#10;Refactor the code to apply command design pattern and also add the button to undo attack in battle" />
   </component>
 </project>

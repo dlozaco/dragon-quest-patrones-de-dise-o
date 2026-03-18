@@ -53,5 +53,10 @@ Creando la interfaz Command que toda acción debe implementar
 ### ¿Qué patrón trata las acciones como objetos de primera clase?
 El patrón Command
 
+## 8. Simplificar la API del combate
+### ¿Qué problema hay en exponer muchos detalles internos a quien solo quiere "hacer un ataque"?
+Un cliente externo que solo quiere ejecutar un ataque debe conocer todo sobre como se ha creado el proyecto
+### ¿Qué patrón ofrece una interfaz simple que oculta la complejidad del subsistema?
+El patrón Facade 
 
 

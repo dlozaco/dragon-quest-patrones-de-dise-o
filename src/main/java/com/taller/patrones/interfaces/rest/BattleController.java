@@ -1,47 +1,40 @@
 package com.taller.patrones.interfaces.rest;
 
-import com.taller.patrones.application.BattleService;
+import java.util.Map;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.taller.patrones.domain.BattleFacade;
+import com.taller.patrones.domain.Character;
 import com.taller.patrones.domain.adapters.ExternalFighterAdapter;
 import com.taller.patrones.domain.adapters.FighterAdapter;
-import com.taller.patrones.domain.Battle;
-import com.taller.patrones.domain.Character;
-import com.taller.patrones.domain.events.AnalyticsObserver;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
+import com.taller.patrones.domain.dtos.BattleDTO;
 
 @RestController
 @RequestMapping("/api/battle")
 @CrossOrigin(origins = "*")
 public class BattleController {
 
-    private final BattleService battleService;
+    private final BattleFacade battleFacade;
 
-    public BattleController(BattleService battleService) {
-        this.battleService = battleService;
+    public BattleController(BattleFacade battleFacade) {
+        this.battleFacade = battleFacade;
     }
 
     @PostMapping("/start")
-    public ResponseEntity<Map<String, Object>> startBattle(@RequestBody(required = false) Map<String, String> body) {
+    public ResponseEntity<BattleDTO> startBattle(@RequestBody(required = false) Map<String, String> body) {
         String playerName = body != null && body.containsKey("playerName") ? body.get("playerName") : null;
         String enemyName = body != null && body.containsKey("enemyName") ? body.get("enemyName") : null;
 
-        var result = battleService.startBattle(playerName, enemyName);
-        Battle battle = result.battle();
-
-        return ResponseEntity.ok(Map.of(
-                "battleId", result.battleId(),
-                "player", toCharacterDto(battle.getPlayer()),
-                "enemy", toCharacterDto(battle.getEnemy()),
-                "currentTurn", battle.getCurrentTurn(),
-                "battleLog", battle.getBattleLog(),
-                "finished", battle.isFinished(),
-                "playerAttacks", BattleService.PLAYER_ATTACKS,
-                "enemyAttacks", BattleService.ENEMY_ATTACKS,
-                "lastDamage", 0,
-                "lastDamageTarget", ""
-        ));
+        BattleDTO result = battleFacade.startBattle(playerName, enemyName);
+        return ResponseEntity.ok(result);
     }
 
     /**
@@ -50,109 +43,58 @@ public class BattleController {
      * La conversión se hace aquí, manualmente, en el controller.
      */
     @PostMapping("/start/external")
-    public ResponseEntity<Map<String, Object>> startBattleFromExternal(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<BattleDTO> startBattleFromExternal(@RequestBody Map<String, Object> body) {
         FighterAdapter fighterAdapter = new ExternalFighterAdapter();
         Character player = fighterAdapter.toPlayer(body);
         Character enemy = fighterAdapter.toEnemy(body);
 
-
-        var result = battleService.startBattleFromExternal(
-                player, enemy
-        );
-        Battle battle = result.battle();
-
-        return ResponseEntity.ok(Map.of(
-                "battleId", result.battleId(),
-                "player", toCharacterDto(battle.getPlayer()),
-                "enemy", toCharacterDto(battle.getEnemy()),
-                "currentTurn", battle.getCurrentTurn(),
-                "battleLog", battle.getBattleLog(),
-                "finished", battle.isFinished(),
-                "playerAttacks", BattleService.PLAYER_ATTACKS,
-                "lastDamage", 0,
-                "lastDamageTarget", ""
-        ));
+        BattleDTO result = battleFacade.startBattleExternal(player, enemy);
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping("/{battleId}")
-    public ResponseEntity<Map<String, Object>> getBattle(@PathVariable String battleId) {
-        Battle battle = battleService.getBattle(battleId);
+    public ResponseEntity<BattleDTO> getBattle(@PathVariable String battleId) {
+        BattleDTO battle = battleFacade.getBattle(battleId);
         if (battle == null) return ResponseEntity.notFound().build();
-        return ResponseEntity.ok(toBattleDto(battle));
+        return ResponseEntity.ok(battle);
     }
 
     @PostMapping("/{battleId}/attack")
-    public ResponseEntity<Map<String, Object>> attack(@PathVariable String battleId,
-                                                       @RequestBody Map<String, String> body) {
-        Battle battle = battleService.getBattle(battleId);
+    public ResponseEntity<BattleDTO> attack(@PathVariable String battleId,
+                                            @RequestBody Map<String, String> body) {
+        BattleDTO battle = battleFacade.getBattle(battleId);
         if (battle == null) return ResponseEntity.notFound().build();
 
         String attackName = body != null && body.get("attack") != null ? body.get("attack") : "TACKLE";
 
-        if (battle.isPlayerTurn()) {
-            battleService.executePlayerAttack(battleId, attackName);
-        } else {
-            battleService.executeEnemyAttack(battleId, attackName);
-        }
+        boolean isPlayerTurn = "player".equals(battle.currentTurn());
+        BattleDTO updatedBattle = battleFacade.executeAttack(battleId, attackName, isPlayerTurn);
 
-        return ResponseEntity.ok(toBattleDto(battleService.getBattle(battleId)));
+        return ResponseEntity.ok(updatedBattle);
     }
 
     @PostMapping("/{battleId}/enemy-turn")
-    public ResponseEntity<Map<String, Object>> enemyTurn(@PathVariable String battleId) {
-        Battle battle = battleService.getBattle(battleId);
+    public ResponseEntity<BattleDTO> enemyTurn(@PathVariable String battleId) {
+        BattleDTO battle = battleFacade.getBattle(battleId);
         if (battle == null) return ResponseEntity.notFound().build();
-        if (battle.isPlayerTurn() || battle.isFinished()) {
-            return ResponseEntity.ok(toBattleDto(battle));
+        if ("player".equals(battle.currentTurn()) || battle.finished()) {
+            return ResponseEntity.ok(battle);
         }
-        String attack = BattleService.ENEMY_ATTACKS.get((int) (Math.random() * BattleService.ENEMY_ATTACKS.size()));
-        battleService.executeEnemyAttack(battleId, attack);
-        return ResponseEntity.ok(toBattleDto(battleService.getBattle(battleId)));
+        
+        // This simulates selecting a random enemy attack
+        String attack = battle.enemyAttacks().get((int) (Math.random() * battle.enemyAttacks().size()));
+        BattleDTO updatedBattle = battleFacade.executeAttack(battleId, attack, false);
+        return ResponseEntity.ok(updatedBattle);
     }
 
     @PostMapping("/{battleId}/undo")
-    public ResponseEntity<Map<String, Object>> undoLastAttack(@PathVariable String battleId) {
-        Battle battle = battleService.getBattle(battleId);
+    public ResponseEntity<BattleDTO> undoLastAttack(@PathVariable String battleId) {
+        BattleDTO battle = battleFacade.getBattle(battleId);
         if (battle == null) {
             return ResponseEntity.notFound().build();
         }
 
-        battleService.undoLastAttack(battleId);
-        Battle updatedBattle = battleService.getBattle(battleId);
-
-        return ResponseEntity.ok(Map.of(
-            "battleId", battleId,
-            "player", updatedBattle.getPlayer(),
-            "enemy", updatedBattle.getEnemy(),
-            "currentTurn", updatedBattle.getCurrentTurn(),
-            "battleLog", updatedBattle.getBattleLog(),
-            "finished", updatedBattle.isFinished()
-        ));
-    }
-
-    private Map<String, Object> toBattleDto(Battle battle) {
-        return Map.of(
-                "player", toCharacterDto(battle.getPlayer()),
-                "enemy", toCharacterDto(battle.getEnemy()),
-                "currentTurn", battle.getCurrentTurn(),
-                "battleLog", battle.getBattleLog(),
-                "finished", battle.isFinished(),
-                "playerAttacks", BattleService.PLAYER_ATTACKS,
-                "lastDamage", battle.getLastDamage(),
-                "lastDamageTarget", battle.getLastDamageTarget() != null ? battle.getLastDamageTarget() : ""
-        );
-    }
-
-    private Map<String, Object> toCharacterDto(Character c) {
-        return Map.of(
-                "name", c.getName(),
-                "currentHp", c.getCurrentHp(),
-                "maxHp", c.getMaxHp(),
-                "hpPercentage", c.getHpPercentage(),
-                "attack", c.getAttack(),
-                "defense", c.getDefense(),
-                "speed", c.getSpeed(),
-                "alive", c.isAlive()
-        );
+        BattleDTO updatedBattle = battleFacade.undoAttack(battleId);
+        return ResponseEntity.ok(updatedBattle);
     }
 }
