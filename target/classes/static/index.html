@@ -434,6 +434,11 @@
             <div class="command-panel">
                 <h3 id="turn-indicator">▶ Tu turno - Elige un ataque:</h3>
                 <div class="attack-grid" id="attack-buttons"></div>
+                <div style="margin-top: 1rem; display: flex; gap: 0.5rem;">
+                    <button class="attack-btn" onclick="undoLastAttack()" id="undo-btn" style="flex: 1; background: linear-gradient(180deg, #5c3d2e 0%, #3d2d1f 100%); border-color: #c9a227;">
+                        ↶ Undo Attack
+                    </button>
+                </div>
             </div>
 
             <div class="message-box">
@@ -522,6 +527,18 @@
                 updateUI(data);
             } catch (e) {
                 console.error(e);
+            }
+        }
+
+        async function undoLastAttack() {
+            try {
+                const res = await fetch(API_BASE + `/api/battle/${battleId}/undo`, {
+                    method: 'POST'
+                });
+                const data = await res.json();
+                updateUI(data);
+            } catch (e) {
+                console.error('Error:', e);
             }
         }
 
