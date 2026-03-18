@@ -1,6 +1,6 @@
 package com.taller.patrones.domain;
 
-import com.taller.patrones.domain.AttackTypes.*;
+import com.taller.patrones.domain.attackTypes.*;
 
 public class DamageFactory {
 

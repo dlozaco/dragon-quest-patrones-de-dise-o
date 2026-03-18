@@ -1,14 +1,14 @@
 package com.taller.patrones.interfaces.rest;
 
 import com.taller.patrones.application.BattleService;
-import com.taller.patrones.domain.Adapters.ExternalFighterAdapter;
-import com.taller.patrones.domain.Adapters.FighterAdapter;
+import com.taller.patrones.domain.adapters.ExternalFighterAdapter;
+import com.taller.patrones.domain.adapters.FighterAdapter;
 import com.taller.patrones.domain.Battle;
 import com.taller.patrones.domain.Character;
+import com.taller.patrones.domain.events.AnalyticsObserver;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -16,7 +16,11 @@ import java.util.Map;
 @CrossOrigin(origins = "*")
 public class BattleController {
 
-    private final BattleService battleService = new BattleService();
+    private final BattleService battleService;
+
+    public BattleController(BattleService battleService) {
+        this.battleService = battleService;
+    }
 
     @PostMapping("/start")
     public ResponseEntity<Map<String, Object>> startBattle(@RequestBody(required = false) Map<String, String> body) {
@@ -104,6 +108,26 @@ public class BattleController {
         String attack = BattleService.ENEMY_ATTACKS.get((int) (Math.random() * BattleService.ENEMY_ATTACKS.size()));
         battleService.executeEnemyAttack(battleId, attack);
         return ResponseEntity.ok(toBattleDto(battleService.getBattle(battleId)));
+    }
+
+    @PostMapping("/{battleId}/undo")
+    public ResponseEntity<Map<String, Object>> undoLastAttack(@PathVariable String battleId) {
+        Battle battle = battleService.getBattle(battleId);
+        if (battle == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        battleService.undoLastAttack(battleId);
+        Battle updatedBattle = battleService.getBattle(battleId);
+
+        return ResponseEntity.ok(Map.of(
+            "battleId", battleId,
+            "player", updatedBattle.getPlayer(),
+            "enemy", updatedBattle.getEnemy(),
+            "currentTurn", updatedBattle.getCurrentTurn(),
+            "battleLog", updatedBattle.getBattleLog(),
+            "finished", updatedBattle.isFinished()
+        ));
     }
 
     private Map<String, Object> toBattleDto(Battle battle) {

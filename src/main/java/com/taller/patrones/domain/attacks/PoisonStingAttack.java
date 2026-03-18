@@ -1,12 +1,12 @@
-package com.taller.patrones.domain.Attacks;
+package com.taller.patrones.domain.attacks;
 
 import com.taller.patrones.domain.Attack;
 import com.taller.patrones.domain.AttackI;
 import com.taller.patrones.domain.AttackType;
 
-public class DefaultAttack implements AttackI{
+public class PoisonStingAttack implements AttackI {
     @Override
     public Attack createAttack() {
-        return new Attack("Golpe", 30, AttackType.NORMAL);
+        return new Attack("Poison Sting", 20, AttackType.STATUS);
     }
 }

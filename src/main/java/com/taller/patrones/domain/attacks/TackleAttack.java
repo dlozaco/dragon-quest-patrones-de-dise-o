@@ -1,12 +1,12 @@
-package com.taller.patrones.domain.Attacks;
+package com.taller.patrones.domain.attacks;
 
 import com.taller.patrones.domain.Attack;
 import com.taller.patrones.domain.AttackI;
 import com.taller.patrones.domain.AttackType;
 
-public class ThunderAttack implements AttackI {
+public class TackleAttack implements AttackI {
     @Override
     public Attack createAttack() {
-        return new Attack("Thunder", 90, AttackType.SPECIAL);
+        return new Attack("Tackle", 40, AttackType.NORMAL);
     }
 }

@@ -1,12 +1,12 @@
-package com.taller.patrones.domain.Attacks;
+package com.taller.patrones.domain.attacks;
 
 import com.taller.patrones.domain.Attack;
 import com.taller.patrones.domain.AttackI;
 import com.taller.patrones.domain.AttackType;
 
-public class FireballAttack implements AttackI {
+public class IceBeamAttack implements AttackI {
     @Override
     public Attack createAttack() {
-        return new Attack("Fireball", 80, AttackType.SPECIAL);
+        return new Attack("Ice Beam", 70, AttackType.SPECIAL);
     }
 }

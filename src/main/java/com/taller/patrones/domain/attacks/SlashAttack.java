@@ -1,4 +1,4 @@
-package com.taller.patrones.domain.Attacks;
+package com.taller.patrones.domain.attacks;
 
 import com.taller.patrones.domain.Attack;
 import com.taller.patrones.domain.AttackI;

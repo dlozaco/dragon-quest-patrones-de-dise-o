@@ -1,6 +1,6 @@
 package com.taller.patrones.domain;
 
-import com.taller.patrones.domain.Builders.CharacterBuilder;
+import com.taller.patrones.domain.builders.CharacterBuilder;
 
 /**
  * Representa un personaje en combate.
@@ -44,5 +44,15 @@ public class Character {
 
     public double getHpPercentage() {
         return maxHp > 0 ? (double) currentHp / maxHp * 100 : 0;
+    }
+
+    public void heal(int amount) {
+        this.currentHp = Math.min(this.currentHp + amount, this.maxHp);
+    }
+
+    public void revive() {
+        if (currentHp <= 0) {
+            currentHp = maxHp;
+        }
     }
 }

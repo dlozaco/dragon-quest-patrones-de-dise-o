@@ -1,6 +1,10 @@
 package com.taller.patrones.domain;
 
+import com.taller.patrones.domain.command.Command;
+
 import java.util.ArrayList;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -38,4 +42,23 @@ public class Battle {
     public void finish(String winner) { finished = true; log("¡" + winner + " gana la batalla!"); }
     public boolean isPlayerTurn() { return "player".equals(currentTurn); }
     public void setLastDamage(int damage, String target) { this.lastDamage = damage; this.lastDamageTarget = target; }
+
+    public void removeLastLog() {
+        if (!battleLog.isEmpty()) {
+            battleLog.remove(battleLog.size() - 1);
+        }
+    }
+
+    private final Deque<Command> commandHistory = new LinkedList<>();
+
+    public void addCommand(Command cmd) {
+        commandHistory.push(cmd);
+    }
+
+    public void undoLastCommand() {
+        if (!commandHistory.isEmpty()) {
+            commandHistory.pop().undo();
+        }
+    }
+
 }
