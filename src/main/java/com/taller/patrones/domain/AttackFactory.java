@@ -13,6 +13,7 @@ public class AttackFactory {
             case "THUNDER" -> new ThunderAttack();
             case "METEOR" -> new MeteorAttack();
             case "TACKLE" -> new TackleAttack();
+            case "TRIPLE_COMBO" -> new TripleComboAttack();
             default -> throw new IllegalArgumentException("Ataque no reconocido: " + attackName);
         };
     }

@@ -1,13 +1,15 @@
 package com.taller.patrones.domain;
 
+import java.util.List;
+
 /**
  * Representa un ataque que puede ejecutar un personaje.
  */
 public class Attack {
 
-    private final String name;
-    private final int basePower;
-    private final AttackType type;
+    protected final String name;
+    protected final int basePower;
+    protected final AttackType type;
 
     public Attack(String name, int basePower, AttackType type) {
         this.name = name;
@@ -19,4 +21,8 @@ public class Attack {
     public int getBasePower() { return basePower; }
     public AttackType getType() { return type; }
 
+    
+    public List<Attack> getHits() {
+        return List.of(this);
+    }
 }

@@ -31,7 +31,7 @@ public class BattleService {
     private final BattleRepository battleRepository = BattleRepository.getInstance();
     private final List<DamageObserver> damageObservers = new ArrayList<>();
 
-    public static final List<String> PLAYER_ATTACKS = List.of("TACKLE", "SLASH", "FIREBALL", "ICE_BEAM", "POISON_STING", "THUNDER", "METEOR");
+    public static final List<String> PLAYER_ATTACKS = List.of("TACKLE", "SLASH", "FIREBALL", "ICE_BEAM", "POISON_STING", "THUNDER", "METEOR", "TRIPLE_COMBO");
     public static final List<String> ENEMY_ATTACKS = List.of("TACKLE", "SLASH", "FIREBALL");
 
     public BattleService(AnalyticsObserver analyticsObserver, AuditLogObserver auditLogObserver) {
@@ -92,8 +92,11 @@ public class BattleService {
         if (battle == null || battle.isFinished() || !battle.isPlayerTurn()) return;
 
         Attack attack = combatEngine.createAttack(attackName);
-        int damage = combatEngine.calculateDamage(battle.getPlayer(), battle.getEnemy(), attack);
-        applyDamage(battle, battle.getPlayer(), battle.getEnemy(), damage, attack);
+        int totalDamage = 0;
+        for (Attack hit : attack.getHits()) {
+            totalDamage += combatEngine.calculateDamage(battle.getPlayer(), battle.getEnemy(), hit);
+        }
+        applyDamage(battle, battle.getPlayer(), battle.getEnemy(), totalDamage, attack);
     }
 
     public void executeEnemyAttack(String battleId, String attackName) {
@@ -101,8 +104,11 @@ public class BattleService {
         if (battle == null || battle.isFinished() || battle.isPlayerTurn()) return;
 
         Attack attack = combatEngine.createAttack(attackName != null ? attackName : "TACKLE");
-        int damage = combatEngine.calculateDamage(battle.getEnemy(), battle.getPlayer(), attack);
-        applyDamage(battle, battle.getEnemy(), battle.getPlayer(), damage, attack);
+        int totalDamage = 0;
+        for (Attack hit : attack.getHits()) {
+            totalDamage += combatEngine.calculateDamage(battle.getEnemy(), battle.getPlayer(), hit);
+        }
+        applyDamage(battle, battle.getEnemy(), battle.getPlayer(), totalDamage, attack);
     }
 
     private void applyDamage(Battle battle, Character attacker, Character defender, int damage, Attack attack) {

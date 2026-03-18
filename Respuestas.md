@@ -59,4 +59,10 @@ Un cliente externo que solo quiere ejecutar un ataque debe conocer todo sobre co
 ### ¿Qué patrón ofrece una interfaz simple que oculta la complejidad del subsistema?
 El patrón Facade 
 
+## 9. Ataques compuestos (combo)
+### ¿Cómo representar "un ataque que son varios ataques"?
+Creando una clase ComboAttack que implemente la interfaz Attack y contenga una lista de ataques individuales
+### ¿Qué patrón permite tratar un grupo de objetos igual que un objeto individual?
+El patrón Composite
+
 
